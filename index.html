@@ -2,32 +2,51 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的簡易購物網</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; }
-        .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
-        #cart { margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; }
-    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 p-5">
 
-    <h1>商品清單</h1>
-    <div class="product">
-        <span>海苔 (單價: 50)</span>
-        <button onclick="addToCart('海苔', 50)">加入購物車</button>
-    </div>
-    <div class="product">
-        <span>洋芋片 (單價: 35)</span>
-        <button onclick="addToCart('洋芋片', 35)">加入購物車</button>
-    </div>
+    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6 text-center">🛒 簡易線上購物</h1>
+        
+        <h2 class="text-xl font-semibold mb-3 text-gray-700">商品列表</h2>
+        <div class="grid grid-cols-1 gap-4 mb-8">
+            <div class="flex justify-between items-center p-3 border rounded-lg bg-white hover:bg-gray-50 transition duration-150 ease-in-out">
+                <span class="font-medium text-gray-800">海苔 (單價: $50)</span>
+                <button onclick="addToCart('海苔', 50)" class="bg-blue-500 text-white text-sm px-4 py-2 rounded-full hover:bg-blue-600 transition duration-150 ease-in-out">加入購物車</button>
+            </div>
+            <div class="flex justify-between items-center p-3 border rounded-lg bg-white hover:bg-gray-50 transition duration-150 ease-in-out">
+                <span class="font-medium text-gray-800">洋芋片 (單價: $35)</span>
+                <button onclick="addToCart('洋芋片', 35)" class="bg-blue-500 text-white text-sm px-4 py-2 rounded-full hover:bg-blue-600 transition duration-150 ease-in-out">加入購物車</button>
+            </div>
+            <div class="flex justify-between items-center p-3 border rounded-lg bg-white hover:bg-gray-50 transition duration-150 ease-in-out">
+                <span class="font-medium text-gray-800">蘋果汁 (單價: $60)</span>
+                <button onclick="addToCart('蘋果汁', 60)" class="bg-blue-500 text-white text-sm px-4 py-2 rounded-full hover:bg-blue-600 transition duration-150 ease-in-out">加入購物車</button>
+            </div>
+        </div>
 
-    <div id="cart">
-        <h2>購物車</h2>
-        <ul id="cart-items"></ul>
-        <p>總金額：$<span id="total-price">0</span></p>
-        <hr>
-        <input type="text" id="user-name" placeholder="請輸入您的姓名">
-        <button onclick="submitOrder()">確認結帳</button>
+        <div class="bg-gray-50 p-4 rounded-lg shadow-inner mb-6">
+            <h2 class="text-xl font-semibold mb-2 text-gray-700">您的購物車</h2>
+            <ul id="cart-items" class="text-sm text-gray-600 mb-4 list-disc pl-5">
+                <li id="empty-cart-message" class="text-gray-500">購物車是空的</li>
+            </ul>
+            <div class="flex justify-between items-center pt-2 border-t border-gray-200">
+                <span class="text-lg font-bold text-gray-800">總金額：</span>
+                <span class="text-2xl font-bold text-red-600">$<span id="total-price">0</span></span>
+            </div>
+        </div>
+
+        <div class="mt-6 p-4 border-t border-gray-200">
+            <input type="text" id="user-name" placeholder="請輸入您的姓名" 
+                   class="w-full border p-3 rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800 bg-white shadow-sm"
+                   required>
+            <button onclick="submitOrder()" 
+                    class="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition duration-150 ease-in-out shadow-md text-lg">
+                確認送出訂單
+            </button>
+        </div>
     </div>
 
     <script>
@@ -36,33 +55,54 @@
 
         // 加到購物車
         function addToCart(name, price) {
-            cart.push({name, price});
+            cart.push({name, price, quantity: 1}); // 假設每次加入都是 1 個
             total += price;
             updateCartUI();
         }
 
-        // 更新畫面
+        // 更新購物車顯示介面
         function updateCartUI() {
             const list = document.getElementById('cart-items');
-            list.innerHTML = '';
-            cart.forEach(item => {
-                let li = document.createElement('li');
-                li.textContent = `${item.name} - $${item.price}`;
-                list.appendChild(li);
-            });
+            const emptyMessage = document.getElementById('empty-cart-message');
+            list.innerHTML = ''; // 清空現有列表
+
+            if (cart.length === 0) {
+                if (emptyMessage) list.appendChild(emptyMessage); // 如果有空訊息，重新加入
+                else { // 如果沒有空訊息，創建一個
+                    const newEmptyMessage = document.createElement('li');
+                    newEmptyMessage.id = 'empty-cart-message';
+                    newEmptyMessage.className = 'text-gray-500';
+                    newEmptyMessage.textContent = '購物車是空的';
+                    list.appendChild(newEmptyMessage);
+                }
+            } else {
+                cart.forEach(item => {
+                    let li = document.createElement('li');
+                    li.className = "mb-1"; // Tailwind CSS for list item spacing
+                    // 為了簡化，這裡暫時不處理相同商品累計數量，直接列出
+                    li.textContent = `${item.name} - $${item.price}`; 
+                    list.appendChild(li);
+                });
+            }
             document.getElementById('total-price').textContent = total;
         }
 
         // 送出訂單到 Google 表單
         function submitOrder() {
             const userName = document.getElementById('user-name').value;
-            if (!userName) { alert('請輸入姓名'); return; }
-            if (cart.length === 0) { alert('購物車是空的'); return; }
+            if (!userName) { 
+                alert('請輸入姓名才能送出訂單喔！'); 
+                return; 
+            }
+            if (cart.length === 0) { 
+                alert('您的購物車是空的，請先加入商品。'); 
+                return; 
+            }
 
-            // 整理訂購明細文字串
+            // 整理訂購明細文字串 (例如：海苔, 洋芋片, 蘋果汁)
             const details = cart.map(item => item.name).join(', ');
 
-            // Google 表單資料 (請對照你提供的 ID)
+            // *** 請確保以下 formURL 和 entry ID 與你的 Google 表單完全一致！ ***
             const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
             
             const formData = new FormData();
@@ -73,16 +113,23 @@
             // 使用 fetch 發送資料
             fetch(formURL, {
                 method: "POST",
-                mode: "no-cors",
+                mode: "no-cors", // 這是為了避免跨域問題，但在實際操作中資料依然會送出
                 body: formData
             }).then(() => {
-                alert('訂單已送出！請查看您的 Google 試算表。');
+                alert('🎉 訂單已成功送出！感謝您的購買！您可以到 Google 試算表查看。');
+                // 送出成功後清空購物車和姓名欄位
                 cart = [];
                 total = 0;
                 updateCartUI();
                 document.getElementById('user-name').value = '';
-            }).catch(error => alert('傳送失敗: ' + error));
+            }).catch(error => {
+                alert('很抱歉，訂單傳送失敗！請稍後再試或聯繫網站管理員。');
+                console.error('Fetch error:', error);
+            });
         }
+
+        // 初始化購物車顯示 (確保首次載入時顯示空購物車訊息)
+        updateCartUI();
     </script>
 </body>
 </html>

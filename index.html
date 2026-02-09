@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>專業版微型購物網</title>
+    <title>測試一</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 p-5">
@@ -54,118 +54,127 @@
     </div>
 
     <script>
-        // 商品資料設定 (您可以在此修改圖片網址與價格)
-        const products = [
-            { id: 1, name: '日式海苔', price: 50, img: 'https://magmagbangkok.com/wp-content/uploads/2021/04/%E0%B8%9A%E0%B9%8A%E0%B8%A7%E0%B8%A2%E0%B8%84%E0%B8%B7%E0%B8%99%E0%B8%8A%E0%B8%B5%E0%B8%9E-186g.png' },
-            { id: 2, name: '脆皮洋芋片', price: 35, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300' },
-            { id: 3, name: '純鮮蘋果汁', price: 60, img: 'https://magmagbangkok.com/wp-content/uploads/2021/04/%E0%B8%9A%E0%B9%8A%E0%B8%A7%E0%B8%A2%E0%B8%84%E0%B8%B7%E0%B8%99%E0%B8%8A%E0%B8%B5%E0%B8%9E-186g.png' }
-        ];
+    // 商品資料設定
+    const products = [
+        { id: 1, name: '日式海苔', price: 50, img: 'https://images.unsplash.com/photo-1599599810676-96359556d113?w=300' },
+        { id: 2, name: '脆皮洋芋片', price: 35, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300' },
+        { id: 3, name: '純鮮蘋果汁', price: 60, img: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=300' }
+    ];
 
-        let cart = {}; // 格式為 { 商品名稱: {price, quantity} }
+    let cart = {}; 
 
-        // 生成商品 HTML
-        function initProducts() {
-            const container = document.getElementById('product-list');
-            products.forEach(p => {
-                container.innerHTML += `
-                    <div class="flex items-center space-x-4 bg-white p-3 border rounded-xl shadow-sm hover:shadow-md transition">
-                        <img src="${p.img}" alt="${p.name}" class="w-20 h-20 object-cover rounded-lg bg-gray-100">
-                        <div class="flex-1">
-                            <h3 class="font-bold text-gray-800">${p.name}</h3>
-                            <p class="text-red-500 font-medium">$${p.price}</p>
-                            <button onclick="addToCart('${p.name}', ${p.price})" 
-                                    class="mt-2 bg-blue-100 text-blue-600 px-3 py-1 rounded-md text-sm font-bold hover:bg-blue-200 transition">
-                                + 加入購物車
-                            </button>
-                        </div>
+    function initProducts() {
+        const container = document.getElementById('product-list');
+        container.innerHTML = ''; // 清空避免重複生成
+        products.forEach(p => {
+            container.innerHTML += `
+                <div class="flex items-center space-x-4 bg-white p-3 border rounded-xl shadow-sm hover:shadow-md transition text-left">
+                    <img src="${p.img}" alt="${p.name}" class="w-20 h-20 object-cover rounded-lg bg-gray-100">
+                    <div class="flex-1">
+                        <h3 class="font-bold text-gray-800">${p.name}</h3>
+                        <p class="text-red-500 font-medium">$${p.price}</p>
+                        <button onclick="addToCart('${p.name}', ${p.price})" 
+                                class="mt-2 bg-blue-100 text-blue-600 px-3 py-1 rounded-md text-sm font-bold hover:bg-blue-200 transition">
+                            + 加入購物車
+                        </button>
                     </div>
+                </div>
+            `;
+        });
+    }
+
+    function addToCart(name, price) {
+        if (cart[name]) {
+            cart[name].quantity += 1;
+        } else {
+            cart[name] = { price: price, quantity: 1 };
+        }
+        renderCart();
+    }
+
+    function renderCart() {
+        const tbody = document.getElementById('cart-table-body');
+        const emptyMsg = document.getElementById('empty-msg');
+        tbody.innerHTML = '';
+        let total = 0;
+        let count = 0;
+
+        const items = Object.keys(cart);
+        if (items.length > 0) {
+            emptyMsg.classList.add('hidden');
+            items.forEach(name => {
+                const item = cart[name];
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                count += item.quantity;
+                tbody.innerHTML += `
+                    <tr class="border-b border-blue-50">
+                        <td class="py-3">${name}</td>
+                        <td class="py-3">$${item.price}</td>
+                        <td class="py-3 text-center">
+                            <div class="flex items-center justify-center space-x-2">
+                                <button onclick="changeQty('${name}', -1)" class="px-2 bg-gray-200 rounded hover:bg-gray-300">-</button>
+                                <span class="font-bold w-4">${item.quantity}</span>
+                                <button onclick="changeQty('${name}', 1)" class="px-2 bg-gray-200 rounded hover:bg-gray-300">+</button>
+                            </div>
+                        </td>
+                        <td class="py-3 text-right font-medium">$${subtotal}</td>
+                    </tr>
                 `;
             });
+        } else {
+            emptyMsg.classList.remove('hidden');
         }
 
-        // [B] 加入購物車邏輯 (含數量)
-        function addToCart(name, price) {
-            if (cart[name]) {
-                cart[name].quantity += 1;
-            } else {
-                cart[name] = { price: price, quantity: 1 };
-            }
+        document.getElementById('total-price').innerText = total;
+        document.getElementById('cart-count').innerText = count;
+    }
+
+    function changeQty(name, delta) {
+        cart[name].quantity += delta;
+        if (cart[name].quantity <= 0) delete cart[name];
+        renderCart();
+    }
+
+    // [10.4] 核心更新：分欄位送出資料
+    async function submitOrder() {
+        const userName = document.getElementById('user-name').value;
+        const items = Object.keys(cart);
+        
+        if (!userName) return alert('請輸入姓名');
+        if (items.length === 0) return alert('購物車是空的');
+
+        const total = document.getElementById('total-price').innerText;
+
+        const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
+        
+        const formData = new FormData();
+        
+        // 姓名與總金額
+        formData.append("entry.556831663", userName); 
+        formData.append("entry.1107950279", total);   
+
+        // 各品項數量 (對應您提供的新 ID)
+        formData.append("entry.926724098", cart['日式海苔'] ? cart['日式海苔'].quantity : 0);
+        formData.append("entry.1801961741", cart['脆皮洋芋片'] ? cart['脆皮洋芋片'].quantity : 0);
+        formData.append("entry.2134589659", cart['純鮮蘋果汁'] ? cart['純鮮蘋果汁'].quantity : 0);
+
+        try {
+            await fetch(formURL, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            });
+            alert('🎉 訂單已成功送出！請查看試算表分欄數據。');
+            cart = {};
+            document.getElementById('user-name').value = '';
             renderCart();
+        } catch (e) {
+            alert('傳送失敗，請稍後再試');
         }
+    }
 
-        // 渲染購物車 UI
-        function renderCart() {
-            const tbody = document.getElementById('cart-table-body');
-            const emptyMsg = document.getElementById('empty-msg');
-            tbody.innerHTML = '';
-            let total = 0;
-            let count = 0;
-
-            const items = Object.keys(cart);
-            if (items.length > 0) {
-                emptyMsg.classList.add('hidden');
-                items.forEach(name => {
-                    const item = cart[name];
-                    const subtotal = item.price * item.quantity;
-                    total += subtotal;
-                    count += item.quantity;
-                    tbody.innerHTML += `
-                        <tr class="border-b border-blue-50">
-                            <td class="py-3">${name}</td>
-                            <td class="py-3">$${item.price}</td>
-                            <td class="py-3 text-center">
-                                <button onclick="changeQty('${name}', -1)" class="px-2 bg-gray-200 rounded">-</button>
-                                <span class="mx-2 font-bold">${item.quantity}</span>
-                                <button onclick="changeQty('${name}', 1)" class="px-2 bg-gray-200 rounded">+</button>
-                            </td>
-                            <td class="py-3 text-right font-medium">$${subtotal}</td>
-                        </tr>
-                    `;
-                });
-            } else {
-                emptyMsg.classList.remove('hidden');
-            }
-
-            document.getElementById('total-price').innerText = total;
-            document.getElementById('cart-count').innerText = count;
-        }
-
-        // 修改數量按鈕
-        function changeQty(name, delta) {
-            cart[name].quantity += delta;
-            if (cart[name].quantity <= 0) delete cart[name];
-            renderCart();
-        }
-
-        // 送出訂單
-        async function submitOrder() {
-            const userName = document.getElementById('user-name').value;
-            const items = Object.keys(cart);
-            if (!userName) return alert('請輸入姓名');
-            if (items.length === 0) return alert('購物車是空的');
-
-            const total = document.getElementById('total-price').innerText;
-            // 組合明細字串，格式：海苔x2, 洋芋片x1
-            const details = items.map(name => `${name}x${cart[name].quantity}`).join(', ');
-
-            const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
-            const formData = new FormData();
-            formData.append("entry.556831663", userName);
-            formData.append("entry.743102720", details);
-            formData.append("entry.1107950279", total);
-
-            try {
-                await fetch(formURL, { method: "POST", mode: "no-cors", body: formData });
-                alert('🎉 訂單已送出！');
-                cart = {};
-                document.getElementById('user-name').value = '';
-                renderCart();
-            } catch (e) {
-                alert('傳送失敗，請稍後再試');
-            }
-        }
-
-        initProducts();
-    </script>
+    initProducts();
+</script>
 </body>
 </html>

@@ -9,29 +9,80 @@
         #cart { margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; }
     </style>
 </head>
-    <script src="https://cdn.tailwindcss.com"></script>
+<body>
 
-<body class="bg-gray-100 p-5">
-    <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl p-6">
-        <h1 class="text-2xl font-bold text-gray-800 mb-4">🛒 線上購物車</h1>
-        
-        <div class="grid grid-cols-1 gap-4 mb-8">
-            <div class="flex justify-between items-center p-3 border rounded-lg hover:bg-gray-50">
-                <span class="font-medium">海苔 ($50)</span>
-                <button onclick="addToCart('海苔', 50)" class="bg-blue-500 text-white px-4 py-1 rounded-full hover:bg-blue-600 transition">加入</button>
-            </div>
-            </div>
-
-        <div class="bg-gray-50 p-4 rounded-lg">
-            <h2 class="text-lg font-semibold mb-2">您的購物車</h2>
-            <ul id="cart-items" class="text-sm text-gray-600 mb-4"></ul>
-            <div class="text-xl font-bold text-red-600">總金額：$<span id="total-price">0</span></div>
-        </div>
-
-        <div class="mt-6">
-            <input type="text" id="user-name" placeholder="請輸入姓名" class="w-full border p-2 rounded mb-3 focus:outline-none focus:ring-2 focus:ring-blue-400">
-            <button onclick="submitOrder()" class="w-full bg-green-500 text-white font-bold py-3 rounded-lg hover:bg-green-600 transition">確認送出訂單</button>
-        </div>
+    <h1>商品清單</h1>
+    <div class="product">
+        <span>海苔 (單價: 50)</span>
+        <button onclick="addToCart('海苔', 50)">加入購物車</button>
     </div>
-    </body>
+    <div class="product">
+        <span>洋芋片 (單價: 35)</span>
+        <button onclick="addToCart('洋芋片', 35)">加入購物車</button>
+    </div>
+
+    <div id="cart">
+        <h2>購物車</h2>
+        <ul id="cart-items"></ul>
+        <p>總金額：$<span id="total-price">0</span></p>
+        <hr>
+        <input type="text" id="user-name" placeholder="請輸入您的姓名">
+        <button onclick="submitOrder()">確認結帳</button>
+    </div>
+
+    <script>
+        let cart = [];
+        let total = 0;
+
+        // 加到購物車
+        function addToCart(name, price) {
+            cart.push({name, price});
+            total += price;
+            updateCartUI();
+        }
+
+        // 更新畫面
+        function updateCartUI() {
+            const list = document.getElementById('cart-items');
+            list.innerHTML = '';
+            cart.forEach(item => {
+                let li = document.createElement('li');
+                li.textContent = `${item.name} - $${item.price}`;
+                list.appendChild(li);
+            });
+            document.getElementById('total-price').textContent = total;
+        }
+
+        // 送出訂單到 Google 表單
+        function submitOrder() {
+            const userName = document.getElementById('user-name').value;
+            if (!userName) { alert('請輸入姓名'); return; }
+            if (cart.length === 0) { alert('購物車是空的'); return; }
+
+            // 整理訂購明細文字串
+            const details = cart.map(item => item.name).join(', ');
+
+            // Google 表單資料 (請對照你提供的 ID)
+            const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
+            
+            const formData = new FormData();
+            formData.append("entry.556831663", userName);      // 姓名
+            formData.append("entry.743102720", details);       // 明細
+            formData.append("entry.1107950279", total);        // 總金額
+
+            // 使用 fetch 發送資料
+            fetch(formURL, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            }).then(() => {
+                alert('訂單已送出！請查看您的 Google 試算表。');
+                cart = [];
+                total = 0;
+                updateCartUI();
+                document.getElementById('user-name').value = '';
+            }).catch(error => alert('傳送失敗: ' + error));
+        }
+    </script>
+</body>
 </html>

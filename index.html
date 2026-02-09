@@ -2,66 +2,87 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>小圈圈團購網</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
+    <title>我的簡易購物網</title>
     <style>
-        body { font-family: 'Noto Sans TC', sans-serif; }
+        body { font-family: sans-serif; padding: 20px; }
+        .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; }
+        #cart { margin-top: 30px; background: #f9f9f9; padding: 20px; border-radius: 8px; }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body>
 
-    <header class="bg-orange-500 text-white py-12 px-4 text-center shadow-lg">
-        <h1 class="text-4xl font-bold mb-2">🛍️ 週末零食團購</h1>
-        <p class="opacity-90">限時優惠，滿 $1000 免運！</p>
-        <div class="mt-4 inline-block bg-orange-600 px-4 py-2 rounded-full text-sm font-semibold">
-            截止倒數：2026/02/15
-        </div>
-    </header>
+    <h1>商品清單</h1>
+    <div class="product">
+        <span>海苔 (單價: 50)</span>
+        <button onclick="addToCart('海苔', 50)">加入購物車</button>
+    </div>
+    <div class="product">
+        <span>洋芋片 (單價: 35)</span>
+        <button onclick="addToCart('洋芋片', 35)">加入購物車</button>
+    </div>
 
-    <main class="max-w-4xl mx-auto p-6">
-        
-        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-                <img src="https://via.placeholder.com/400x250?text=Product+A" alt="商品" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">經典泰式海苔</h3>
-                    <p class="text-gray-600 mb-4 text-sm">酥脆口感，團購限定大包裝。</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-orange-600 font-bold text-2xl">$150</span>
-                        <span class="text-gray-400 line-through text-sm">原價 $200</span>
-                    </div>
-                </div>
-            </div>
+    <div id="cart">
+        <h2>購物車</h2>
+        <ul id="cart-items"></ul>
+        <p>總金額：$<span id="total-price">0</span></p>
+        <hr>
+        <input type="text" id="user-name" placeholder="請輸入您的姓名">
+        <button onclick="submitOrder()">確認結帳</button>
+    </div>
 
-            <div class="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-xl transition duration-300">
-                <img src="https://via.placeholder.com/400x250?text=Product+B" alt="商品" class="w-full h-48 object-cover">
-                <div class="p-6">
-                    <h3 class="text-xl font-bold mb-2">手作香濃芒果乾</h3>
-                    <p class="text-gray-600 mb-4 text-sm">無添加人工色素，果肉厚實。</p>
-                    <div class="flex justify-between items-center">
-                        <span class="text-orange-600 font-bold text-2xl">$280</span>
-                        <span class="text-gray-400 line-through text-sm">原價 $350</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <script>
+        let cart = [];
+        let total = 0;
 
-        <section class="text-center bg-white p-8 rounded-3xl shadow-inner border-2 border-dashed border-orange-200">
-            <h2 class="text-2xl font-bold mb-4">準備好要下單了嗎？</h2>
-            <p class="text-gray-500 mb-8">請點擊下方按鈕前往 Google 表單填寫數量</p>
+        // 加到購物車
+        function addToCart(name, price) {
+            cart.push({name, price});
+            total += price;
+            updateCartUI();
+        }
+
+        // 更新畫面
+        function updateCartUI() {
+            const list = document.getElementById('cart-items');
+            list.innerHTML = '';
+            cart.forEach(item => {
+                let li = document.createElement('li');
+                li.textContent = `${item.name} - $${item.price}`;
+                list.appendChild(li);
+            });
+            document.getElementById('total-price').textContent = total;
+        }
+
+        // 送出訂單到 Google 表單
+        function submitOrder() {
+            const userName = document.getElementById('user-name').value;
+            if (!userName) { alert('請輸入姓名'); return; }
+            if (cart.length === 0) { alert('購物車是空的'); return; }
+
+            // 整理訂購明細文字串
+            const details = cart.map(item => item.name).join(', ');
+
+            // Google 表單資料 (請對照你提供的 ID)
+            const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
             
-            <a href="https://docs.google.com/spreadsheets/d/1b11ZNAutFg9vu6OBxGc7zQBIKWcVozuYQDvNYk6RsGY/edit?usp=sharing" target="_blank" class="inline-block bg-orange-500 hover:bg-orange-600 text-white text-xl font-bold py-4 px-12 rounded-full shadow-lg transform hover:-translate-y-1 transition">
-                🚀 我要參團
-            </a>
-        </section>
+            const formData = new FormData();
+            formData.append("entry.556831663", userName);      // 姓名
+            formData.append("entry.743102720", details);       // 明細
+            formData.append("entry.1107950279", total);        // 總金額
 
-    </main>
-
-    <footer class="mt-12 text-center text-gray-400 pb-8 text-sm">
-        © 2026 團購小助手 | 由 GitHub Pages 提供服務
-    </footer>
-
+            // 使用 fetch 發送資料
+            fetch(formURL, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            }).then(() => {
+                alert('訂單已送出！請查看您的 Google 試算表。');
+                cart = [];
+                total = 0;
+                updateCartUI();
+                document.getElementById('user-name').value = '';
+            }).catch(error => alert('傳送失敗: ' + error));
+        }
+    </script>
 </body>
 </html>

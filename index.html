@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>測試一</title>
+    <title>測試二</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 p-5">
 
     <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-6">
         <h1 class="text-3xl font-bold text-gray-800 mb-8 text-center">🛒 精選商店</h1>
-        
+
         <h2 class="text-xl font-semibold mb-4 text-gray-700 border-l-4 border-blue-500 pl-2">商品選購</h2>
         <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            </div>
+        </div>
 
         <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-inner">
             <h2 class="text-xl font-semibold mb-4 text-blue-800 flex justify-between">
@@ -31,11 +33,11 @@
                         </tr>
                     </thead>
                     <tbody id="cart-table-body">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
             <div id="empty-msg" class="text-center py-4 text-gray-400">購物車內尚無商品</div>
-            
+
             <div class="flex justify-between items-center pt-4 border-t border-blue-200 mt-4">
                 <span class="text-lg font-bold text-gray-800">應付總額：</span>
                 <span class="text-2xl font-bold text-red-600">$<span id="total-price">0</span></span>
@@ -44,30 +46,60 @@
 
         <div class="mt-8 border-t pt-6">
             <label class="block text-sm font-medium text-gray-700 mb-2">收件人姓名</label>
-            <input type="text" id="user-name" placeholder="請輸入姓名" 
-                   class="w-full border p-3 rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none shadow-sm">
-            <button onclick="submitOrder()" 
-                    class="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl hover:bg-indigo-700 transition-all shadow-lg text-lg">
+            <input type="text" id="user-name" placeholder="請輸入姓名"
+                class="w-full border p-3 rounded-lg mb-4 focus:ring-2 focus:ring-blue-400 outline-none shadow-sm">
+            <button onclick="submitOrder()"
+                class="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl hover:bg-indigo-700 transition-all shadow-lg text-lg">
                 確認送出訂單
             </button>
         </div>
     </div>
 
     <script>
-    // 商品資料設定
-    const products = [
-        { id: 1, name: '日式海苔', price: 50, img: 'https://images.unsplash.com/photo-1599599810676-96359556d113?w=300' },
-        { id: 2, name: '脆皮洋芋片', price: 35, img: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=300' },
-        { id: 3, name: '純鮮蘋果汁', price: 60, img: 'https://images.unsplash.com/photo-1567306226416-28f0efdc88ce?w=300' }
-    ];
+        // 1. 商品資料設定 (請確保名稱與您表單中的順序一致)
+        const products = [
+            { name: '蜂膠噴霧 propoliz mouth spray', price: 50, entryId: 'entry.926724098' },
+            { name: '蛇牌噴霧 玫瑰 ตรางู ปริกลี่ฮีท คูลลิ่ง มิสท์ คลาสสิก', price: 50, entryId: 'entry.417431954' },
+            { name: '防蚊液 柑橘 ซอฟเฟล สเปรย์กันยุง กลิ่นเฟรช', price: 50, entryId: 'entry.1801961741' },
+            { name: '天鵝牌鼻通', price: 50, entryId: 'entry.2054506168' },
+            { name: 'poysiam 鼻通 吸鼻劑六入 ยาดม 6 ซอง', price: 50, entryId: 'entry.1479087386' },
+            { name: 'LISA 藍罐鼻通', price: 50, entryId: 'entry.676572391' },
+            { name: '阿婆香皂MADAME HENG (興太太)香皂 原味 เมอรี่เบลล์ สบู่สมุนไพร', price: 50, entryId: 'entry.126626699' },
+            { name: '阿婆香皂MADAME HENG(興太太)香皂 薄荷 มาดามเฮง สบู่มิ้นท์แคร์สปา', price: 50, entryId: 'entry.659010215' },
+            { name: '阿婆香皂MADAME HENG(興太太)香皂 玫瑰 มาดามเฮง สบู่กุหลาบแคร์สปา', price: 50, entryId: 'entry.1408326793' },
+            { name: '阿婆香皂MADAME HENG(興太太)香皂 檀香 สบู่มาดามเฮง สบู่ไม้หอม แคร์สปา', price: 50, entryId: 'entry.1550879825' },
+            { name: '蚊蟲叮咬 頭痛用 涼涼膏  ไอซ์ เจลลิบาล์ม ยาดมพร้อมทาสูตรเจล', price: 50, entryId: 'entry.647340521' },
+            { name: 'ZAM-BUK 青草膏 18g แซม-บัค เอชอาร์ ', price: 50, entryId: 'entry.1380787522' },
+            { name: '巴黎萊雅 保濕清新防曬 (泰國獨家版) ลอรีอัล ปารีส ยูวี ดีเฟนเดอร์ แมทท์ แอนด์ เฟรช', price: 50, entryId: 'entry.1739351714' },
+            { name: '還魂梅 บ๊วยคืนชีพ', price: 50, entryId: 'entry.2134589659' },
+            { name: '魷魚片花枝脆片黃色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.41530697' },
+            { name: '魷魚片麻辦紅色包裝 18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.1218966055' },
+            { name: '魷魚片蒜味藍色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.1796287054' },
+            { name: '魷魚片桔色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.660240471' },
+            { name: '芒果軟糖 200g Gummy Mangoes MAX', price: 50, entryId: 'entry.445090895' },
+            { name: '芒果乾 200g มะม่วงแก้วขมิ้น', price: 50, entryId: 'entry.2103707388' },
+            { name: '芭樂乾 200g ฝรั่งกิมจูอบแห้ง', price: 50, entryId: 'entry.1290561039' },
+            { name: 'JIRAPORN 香蕉脆片 80g กล้วยอบเนย', price: 50, entryId: 'entry.1912146295' },
+            { name: 'JIRAPORN 香蕉脆片 80g กล้วยอบเนย', price: 50, entryId: 'entry.478490252' },
+            { name: '皇家牌乳片', price: 50, entryId: 'entry.1599520756' },
+            { name: '奶油小熊餅干泰奶', price: 50, entryId: 'entry.679036260' },
+            { name: '雙龍牌船麵(冬粉-湯) มังกรคู่ เรดดี้ วุ้นเส้น รสก๋วยเตี๋ยวเรือ', price: 50, entryId: 'entry.553616762' },
+            { name: '雙龍牌船麵(細粿條-湯) มังกรคู่ เรดดี้ เส้นเล็ก รสก๋วยเตี๋ยวเรือ', price: 50, entryId: 'entry.551884674' },
+            { name: '雙龍牌船麵(細粿條-乾) มัมังกรคู่ เรดดี้ เส้นเล็กแซ่บแห้ง', price: 50, entryId: 'entry.2136513928' },
+            { name: 'MAMA船麵(細粿條-湯) มาม่า เส้นเล็ก รสก๋วยเตี๋ยวเรือซอสเผ็ด', price: 50, entryId: 'entry.2032416106' },
+            { name: '小老闆原味海苔 เถ้าแก่น้อยบิ๊กชีทคลาสสิค', price: 50, entryId: 'entry.1157756056' },
+            { name: '小老闆辣味海苔 เถ้าแก่น้อยบิ๊กชีทสาหร่ายเผ็ดจี๊ด', price: 50, entryId: 'entry.1425148067' },
+            { name: '小老闆冬陰功海苔約 เถ้าแก่น้อยสาหร่ายทอดรสต้มยำมันกุ้ง', price: 50, entryId: 'entry.742162343' },
+            { name: '臘腸狗盲盒新年款', price: 50, entryId: 'entry.895757770' }
+        ];
 
-    let cart = {}; 
+        let cart = {};
 
-    function initProducts() {
-        const container = document.getElementById('product-list');
-        container.innerHTML = ''; // 清空避免重複生成
-        products.forEach(p => {
-            container.innerHTML += `
+        function initProducts() {
+            const container = document.getElementById('product-list');
+            container.innerHTML = ''; // 清空避免重複生成
+            products.forEach(p => {
+                container.innerHTML += `
                 <div class="flex items-center space-x-4 bg-white p-3 border rounded-xl shadow-sm hover:shadow-md transition text-left">
                     <img src="${p.img}" alt="${p.name}" class="w-20 h-20 object-cover rounded-lg bg-gray-100">
                     <div class="flex-1">
@@ -80,34 +112,34 @@
                     </div>
                 </div>
             `;
-        });
-    }
-
-    function addToCart(name, price) {
-        if (cart[name]) {
-            cart[name].quantity += 1;
-        } else {
-            cart[name] = { price: price, quantity: 1 };
+            });
         }
-        renderCart();
-    }
 
-    function renderCart() {
-        const tbody = document.getElementById('cart-table-body');
-        const emptyMsg = document.getElementById('empty-msg');
-        tbody.innerHTML = '';
-        let total = 0;
-        let count = 0;
+        function addToCart(name, price) {
+            if (cart[name]) {
+                cart[name].quantity += 1;
+            } else {
+                cart[name] = { price: price, quantity: 1 };
+            }
+            renderCart();
+        }
 
-        const items = Object.keys(cart);
-        if (items.length > 0) {
-            emptyMsg.classList.add('hidden');
-            items.forEach(name => {
-                const item = cart[name];
-                const subtotal = item.price * item.quantity;
-                total += subtotal;
-                count += item.quantity;
-                tbody.innerHTML += `
+        function renderCart() {
+            const tbody = document.getElementById('cart-table-body');
+            const emptyMsg = document.getElementById('empty-msg');
+            tbody.innerHTML = '';
+            let total = 0;
+            let count = 0;
+
+            const items = Object.keys(cart);
+            if (items.length > 0) {
+                emptyMsg.classList.add('hidden');
+                items.forEach(name => {
+                    const item = cart[name];
+                    const subtotal = item.price * item.quantity;
+                    total += subtotal;
+                    count += item.quantity;
+                    tbody.innerHTML += `
                     <tr class="border-b border-blue-50">
                         <td class="py-3">${name}</td>
                         <td class="py-3">$${item.price}</td>
@@ -121,60 +153,55 @@
                         <td class="py-3 text-right font-medium">$${subtotal}</td>
                     </tr>
                 `;
-            });
-        } else {
-            emptyMsg.classList.remove('hidden');
+                });
+            } else {
+                emptyMsg.classList.remove('hidden');
+            }
+
+            document.getElementById('total-price').innerText = total;
+            document.getElementById('cart-count').innerText = count;
         }
 
-        document.getElementById('total-price').innerText = total;
-        document.getElementById('cart-count').innerText = count;
-    }
-
-    function changeQty(name, delta) {
-        cart[name].quantity += delta;
-        if (cart[name].quantity <= 0) delete cart[name];
-        renderCart();
-    }
-
-    // [10.4] 核心更新：分欄位送出資料
-    async function submitOrder() {
-        const userName = document.getElementById('user-name').value;
-        const items = Object.keys(cart);
-        
-        if (!userName) return alert('請輸入姓名');
-        if (items.length === 0) return alert('購物車是空的');
-
-        const total = document.getElementById('total-price').innerText;
-
-        const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
-        
-        const formData = new FormData();
-        
-        // 姓名與總金額
-        formData.append("entry.556831663", userName); 
-        formData.append("entry.1107950279", total);   
-
-        // 各品項數量 (對應您提供的新 ID)
-        formData.append("entry.926724098", cart['日式海苔'] ? cart['日式海苔'].quantity : 0);
-        formData.append("entry.1801961741", cart['脆皮洋芋片'] ? cart['脆皮洋芋片'].quantity : 0);
-        formData.append("entry.2134589659", cart['純鮮蘋果汁'] ? cart['純鮮蘋果汁'].quantity : 0);
-
-        try {
-            await fetch(formURL, {
-                method: "POST",
-                mode: "no-cors",
-                body: formData
-            });
-            alert('🎉 訂單已成功送出！請查看試算表分欄數據。');
-            cart = {};
-            document.getElementById('user-name').value = '';
+        function changeQty(name, delta) {
+            cart[name].quantity += delta;
+            if (cart[name].quantity <= 0) delete cart[name];
             renderCart();
-        } catch (e) {
-            alert('傳送失敗，請稍後再試');
         }
-    }
 
-    initProducts();
-</script>
+        // [10.4] 核心更新：分欄位送出資料
+        // 2. 結帳函式
+        async function submitOrder() {
+            const userName = document.getElementById('user-name').value;
+            if (!userName) return alert('請輸入姓名');
+            if (Object.keys(cart).length === 0) return alert('購物車是空的');
+
+            const total = document.getElementById('total-price').innerText;
+            const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
+            const formData = new FormData();
+
+            // 基本資料
+            formData.append("entry.556831663", userName);
+            formData.append("entry.1107950279", total);
+
+            // 自動循環所有商品並填入對應 ID 數量
+            products.forEach(p => {
+                const qty = cart[p.name] ? cart[p.name].quantity : 0;
+                formData.append(p.entryId, qty);
+            });
+
+            try {
+                await fetch(formURL, { method: "POST", mode: "no-cors", body: formData });
+                alert('🎉 訂單已成功送出！');
+                cart = {};
+                document.getElementById('user-name').value = '';
+                renderCart();
+            } catch (e) {
+                alert('傳送失敗，請稍後再試');
+            }
+        }
+
+        initProducts();
+    </script>
 </body>
+
 </html>

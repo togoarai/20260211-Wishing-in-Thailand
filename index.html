@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026泰國許願池</title>
+    <title>2026泰國許願池 v2.2.0</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .product-img { aspect-ratio: 1 / 1; object-fit: cover; }
@@ -67,17 +67,16 @@
     </div>
 
     <script>
-        // 在這裡的 img 欄位放入您的照片路徑
         const products = [
             { name: '001-蜂膠噴霧 propoliz mouth spray', price: 50, entryId: 'entry.926724098', img: 'https://i.ebayimg.com/images/g/bCgAAOSwFzNltMDq/s-l1600.webp' },
-            { name: '002-蛇牌噴霧 玫瑰 ตรางู ปริกลี่ฮีท คูลลิ่ง มิสท์ คลาสสิก', price: 50, entryId: 'entry.417431954', img: 'https://www.jatujakmall.com/content/images/thumbs/0042149_snake-brand-prickly-heat-classic-cooling-body-spray-50-ml_550.jpeg' },
-            { name: '003-防蚊液 柑橘 ซอฟフェル สเปรย์กันยุง กลิ่นเฟรช', price: 50, entryId: 'entry.1801961741', img: 'https://thmappbkk.blob.core.windows.net/boots/2025/10/28/1279ffd0-eff9-4c46-b80f-8ccb2290702a_large.jpg' },
+            { name: '002-蛇牌噴霧 玫瑰 ตรางู ปริกลี่ฮีท คูลลิ่ง มิスท์ คลาสสิก', price: 50, entryId: 'entry.417431954', img: 'https://www.jatujakmall.com/content/images/thumbs/0042149_snake-brand-prickly-heat-classic-cooling-body-spray-50-ml_550.jpeg' },
+            { name: '003-防蚊液 柑橘 ซอฟเฟล สเปรย์กันยุง กลิ่นเฟรช', price: 50, entryId: 'entry.1801961741', img: 'https://thmappbkk.blob.core.windows.net/boots/2025/10/28/1279ffd0-eff9-4c46-b80f-8ccb2290702a_large.jpg' },
             { name: '004-天鵝牌鼻通', price: 50, entryId: 'entry.2054506168', img: 'https://3auntiesthaimarket.com/cdn/shop/files/FB_IMG_1655350120994-removebg-preview_800x.png?v=1741646844' },
             { name: '005-poysiam 鼻通 吸鼻劑六入 ยาดม 6 ซอง', price: 50, entryId: 'entry.1479087386', img: 'https://img.lazcdn.com/g/p/mdc/3018594412dbaf0d33214f53803c4f0e.jpg_720x720q80.jpg' },
             { name: '006-LISA 藍罐鼻通', price: 50, entryId: 'entry.676572391', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6l3hNouhYhDESIIYr8u5CBOAFFn7tBRvQfg&s' },
             { name: '007-阿婆香皂MADAME HENG (興太太)香皂 原味 เมอรี่เบลล์ สบู่สมุนไพร', price: 50, entryId: 'entry.126626699', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3ly1b7u5VNY8b8frN68a43qdET4RPdVd7Jg&s' },
             { name: '008-阿婆香皂MADAME HENG(興太太)香皂 薄荷 มาดามเฮง สบู่มิ้นท์แคร์สปา', price: 50, entryId: 'entry.659010215', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/16/88/8853502010716/8853502010716_1-20240304093141-.jpg' },
-            { name: '009-阿婆香皂MADAME HENG(興太太)香皂 玫瑰 มาดามเฮง สบู่กุหลาบแคร์スปา', price: 50, entryId: 'entry.1408326793', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/93/88/8853502010693/8853502010693_6-20240304093145-.jpg' },
+            { name: '009-阿婆香皂MADAME HENG(興太太)香皂 玫瑰 มาดามเฮง สบู่กุหลาบแคร์สปา', price: 50, entryId: 'entry.1408326793', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/93/88/8853502010693/8853502010693_6-20240304093145-.jpg' },
             { name: '010-阿婆香皂MADAME HENG(興太太)香皂 檀香 สบู่มาดามเฮง สบู่ไม้หอม แคร์สปา', price: 50, entryId: 'entry.1550879825', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROgzDK_dfGaCdAR5vV52R5IwgsZYPeBhTMeg&s' },
             { name: '011-蚊蟲叮咬 頭痛用 涼涼膏  ไอซ์ เจลลิบาล์ม ยาดมพร้อมทาสูตรเจล', price: 50, entryId: 'entry.647340521', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/10/88/8854060000010/8854060000010_1-20250901105232-.jpg' },
             { name: '012-ZAM-BUK 青草膏 18g แซม-บัค เอชอาร์ ', price: 50, entryId: 'entry.1380787522', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/10/88/8850172242010/8850172242010_3-20241022154133-.jpg' },
@@ -86,7 +85,7 @@
             { name: '015-魷魚片花枝脆片黃色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.41530697', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR20OeO6yiditn26R3iWNlitR2UoM1gxdIT6w&s' },
             { name: '016-魷魚片麻辣紅色包裝 18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.1218966055', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/07/88/8850157400107/8850157400107_1-20241107144942-.jpg' },
             { name: '017-魷魚片蒜味藍色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.1796287054', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/01/88/8850157401401/8850157401401_2-20240614115906-.jpg' },
-            { name: '018-魷魚片桔色包裝18g เบนโตะ ปลาหมึกอบ รスลาบ', price: 50, entryId: 'entry.660240471', img: 'https://media.allonline.7eleven.co.th/pdmain/396441-01-squid-bento.jpg' },
+            { name: '018-魷魚片桔色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.660240471', img: 'https://media.allonline.7eleven.co.th/pdmain/396441-01-squid-bento.jpg' },
             { name: '019-芒果軟糖 200g Gummy Mangoes MAX', price: 50, entryId: 'entry.445090895', img: 'https://scontent.ftpe8-3.fna.fbcdn.net/v/t39.30808-6/471646793_18326478304085755_6738271295479308751_n.jpg?stp=dst-jpg_s1080x2048_tt6&_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=zzgmP9ipUB0Q7kNvwEC44Jn&_nc_oc=AdnKegTL4Rv4LH3FvkXgZaUgDYZEGoP-ivEN6tv-E9ptBn-t7-WTlgQ2tkM6qCqNhdA&_nc_zt=23&_nc_ht=scontent.ftpe8-3.fna&_nc_gid=xtgb3hG39cpC5aSx1Yj1RQ&oh=00_Aftau88ozSL7NdsJkWK7aDVaMq0vOocvobP2qDkQPzrBWw&oe=69905EFB' },
             { name: '020-芒果乾 200g มะม่วงแก้วขมิ้น', price: 50, entryId: 'entry.2103707388', img: 'https://scontent.ftpe8-4.fna.fbcdn.net/v/t51.75761-15/505088126_18346832650085755_6208029390634422920_n.jpg?stp=dst-jpg_s1080x2048_tt6&_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=bcXMx5WGzOMQ7kNvwHtcKUA&_nc_oc=AdnlkTMY9z3iPrPgRiB82-yU8J14DDTMZBVB7FwVnR_GbSslUZ62j8XZhAs00FEt9RY&_nc_zt=23&_nc_ht=scontent.ftpe8-4.fna&_nc_gid=K71bVKFyTpgO_iZej9iOUA&oh=00_AfsEyzeDzUDAHcg0b7h7jkWjdE0sePF_Y7kEAUInU9OHjQ&oe=69906849' },
             { name: '021-芭樂乾 200g ฝรั่งกิมจูอบแห้ง', price: 50, entryId: 'entry.1290561039', img: 'https://scontent.ftpe8-2.fna.fbcdn.net/v/t51.82787-15/531474903_18354203842085755_7602481128048168293_n.jpg?stp=dst-jpg_s1080x2048_tt6&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=pzfW1QIBcTQQ7kNvwFNft91&_nc_oc=Adk6KwOi6kZgBaPSjF3oTQxTPG-P6V3OiWt91cX3qJXq_uYAqx0e6Pv4APAJXEHpp4A&_nc_zt=23&_nc_ht=scontent.ftpe8-2.fna&_nc_gid=WvO0W92CkqHfYZ2ZlTOtPg&oh=00_AfvBLS-YXyMWxspNueicLnUADJJT7A_aHAmHj9TKy-qykg&oe=69908169' },
@@ -137,8 +136,9 @@
             const container = document.getElementById('product-list');
             container.innerHTML = '';
             products.forEach(p => {
-                // 如果 img 是空的，就顯示一個 placeholder
                 const imgSrc = p.img || `https://placehold.co/400x400/e2e8f0/64748b?text=${p.name.substring(0,3)}`;
+                
+                // 產生卡片 HTML，包含一個動態的按鈕區域
                 container.innerHTML += `
                 <div class="flex flex-col bg-white border rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
                     <img src="${imgSrc}" alt="${p.name}" class="w-full product-img bg-gray-50">
@@ -147,18 +147,55 @@
                             <h3 class="font-bold text-gray-800 text-sm leading-tight truncate-2-lines mb-2">${p.name}</h3>
                             <p class="text-red-500 font-extrabold text-lg">$${p.price}</p>
                         </div>
-                        <button onclick="addToCart('${p.name}', ${p.price})" 
-                                class="mt-4 w-full bg-blue-600 text-white py-2 rounded-lg text-sm font-bold hover:bg-blue-700 transition">
-                            + 加入購物車
-                        </button>
+                        <div id="btn-area-${p.name}" class="mt-4 h-10">
+                            ${renderButton(p.name, p.price)}
+                        </div>
                     </div>
                 </div>`;
             });
         }
 
+        // 核心邏輯：根據購物車內容決定按鈕樣式
+        function renderButton(name, price) {
+            if (cart[name]) {
+                return `
+                <div class="flex items-center justify-between w-full h-full bg-blue-50 rounded-lg border border-blue-200 overflow-hidden">
+                    <button onclick="changeQty('${name}', -1)" class="w-10 h-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition">-</button>
+                    <span class="font-bold text-blue-700">${cart[name].quantity}</span>
+                    <button onclick="changeQty('${name}', 1)" class="w-10 h-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition">+</button>
+                </div>`;
+            } else {
+                return `
+                <button onclick="addToCart('${name}', ${price})" 
+                        class="w-full h-full bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-sm">
+                    + 加入購物車
+                </button>`;
+            }
+        }
+
         function addToCart(name, price) {
             if (cart[name]) cart[name].quantity += 1;
             else cart[name] = { price, quantity: 1 };
+            updateUI(name, price);
+        }
+
+        function changeQty(name, delta) {
+            if (cart[name]) {
+                cart[name].quantity += delta;
+                const price = cart[name].price;
+                if (cart[name].quantity <= 0) delete cart[name];
+                updateUI(name, price);
+            }
+        }
+
+        // 封裝更新功能，確保按鈕與購物清單同步更新
+        function updateUI(name, price) {
+            // 1. 更新商品卡片上的按鈕
+            const btnArea = document.getElementById(`btn-area-${name}`);
+            if (btnArea) {
+                btnArea.innerHTML = renderButton(name, price);
+            }
+            // 2. 更新購物車清單
             renderCart();
         }
 
@@ -179,7 +216,7 @@
                         <td class="py-3 pr-2 text-xs font-medium">${name}</td>
                         <td class="py-3 text-gray-500">$${item.price}</td>
                         <td class="py-3 text-center">
-                            <div class="flex items-center justify-center space-x-2">
+                            <div class="flex items-center justify-center space-x-2 text-xs md:text-sm">
                                 <button onclick="changeQty('${name}', -1)" class="w-6 h-6 bg-gray-200 rounded-full font-bold hover:bg-gray-300">-</button>
                                 <span class="font-bold w-4 text-center text-blue-600">${item.quantity}</span>
                                 <button onclick="changeQty('${name}', 1)" class="w-6 h-6 bg-gray-200 rounded-full font-bold hover:bg-gray-300">+</button>
@@ -191,12 +228,6 @@
             } else { emptyMsg.classList.remove('hidden'); }
             document.getElementById('total-price').innerText = total;
             document.getElementById('cart-count').innerText = count;
-        }
-
-        function changeQty(name, delta) {
-            cart[name].quantity += delta;
-            if (cart[name].quantity <= 0) delete cart[name];
-            renderCart();
         }
 
         async function submitOrder() {
@@ -221,7 +252,15 @@
             try {
                 fetch(formURL, { method: "POST", mode: "no-cors", body: formData });
                 alert('🎉 訂單已送出！感謝您的購買！\nขอบคุณมากครับ');
+                
+                // 送出後清空購物車與所有按鈕狀態
+                const oldItems = Object.keys(cart);
                 cart = {};
+                oldItems.forEach(name => {
+                    const p = products.find(prod => prod.name === name);
+                    if(p) updateUI(name, p.price);
+                });
+                
                 document.getElementById('user-name').value = '';
                 document.getElementById('wish-list').value = '';
                 renderCart();

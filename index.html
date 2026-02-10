@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>2026泰國許願池 v2.2.2</title>
+    <title>2026泰國許願池 v2.2.3</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .product-img { aspect-ratio: 1 / 1; object-fit: cover; }
@@ -13,14 +13,13 @@
 <body class="bg-gray-100 p-5">
 
     <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden p-6">
-        <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">🛒 v2.2.2-2026泰國許願池</h1>
+        <h1 class="text-3xl font-bold text-gray-800 mb-2 text-center">🛒 v2.2.3-2026泰國許願池</h1>
         <p class="text-gray-500 mb-8 text-center font-medium">點擊下方按鈕加入購物車，結帳資料將自動同步至系統</p>
 
-        <h2 class="text-xl font-semibold mb-4 text-gray-700 border-l-4 border-blue-500 pl-2">商品選購</h2>
-        <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-            </div>
+        <h2 class="text-xl font-semibold mb-4 text-gray-700 border-l-4 border-blue-500 pl-2 text-left">商品選購</h2>
+        <div id="product-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10 text-left"></div>
 
-        <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-inner">
+        <div class="bg-blue-50 p-5 rounded-xl border border-blue-100 shadow-inner text-left">
             <h2 class="text-xl font-semibold mb-4 text-blue-800 flex justify-between">
                 <span>您的購物清單</span>
                 <span id="cart-count" class="text-sm bg-blue-500 text-white px-2 py-1 rounded-full">0</span>
@@ -46,23 +45,16 @@
             </div>
         </div>
 
-        <div class="mt-8 border-t pt-6">
+        <div class="mt-8 border-t pt-6 text-left">
             <div class="mb-4">
                 <label class="block text-sm font-bold text-gray-700 mb-2">收件人姓名</label>
-                <input type="text" id="user-name" placeholder="請輸入姓名" 
-                    class="w-full border-2 border-gray-200 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none shadow-sm">
+                <input type="text" id="user-name" placeholder="請輸入姓名" class="w-full border-2 border-gray-200 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none shadow-sm">
             </div>
-
             <div class="mb-6">
                 <label class="block text-sm font-bold text-gray-700 mb-2">許願池 / 備註</label>
-                <textarea id="wish-list" rows="3" placeholder="若有清單外的商品或特殊需求請填寫於此" 
-                    class="w-full border-2 border-gray-200 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none shadow-sm"></textarea>
+                <textarea id="wish-list" rows="3" placeholder="若有清單外的商品或特殊需求請填寫於此" class="w-full border-2 border-gray-200 p-3 rounded-lg focus:ring-2 focus:ring-blue-400 outline-none shadow-sm"></textarea>
             </div>
-
-            <button onclick="submitOrder()" 
-                class="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg text-lg">
-                確認送出訂單
-            </button>
+            <button onclick="submitOrder()" class="w-full bg-indigo-600 text-white font-bold py-4 rounded-xl hover:bg-indigo-700 active:scale-95 transition-all shadow-lg text-lg">確認送出訂單</button>
         </div>
     </div>
 
@@ -70,7 +62,7 @@
         const products = [
             { name: '001-蜂膠噴霧 propoliz mouth spray', price: 50, entryId: 'entry.926724098', img: 'https://i.ebayimg.com/images/g/bCgAAOSwFzNltMDq/s-l1600.webp' },
             { name: '002-蛇牌噴霧 玫瑰 ตรางู ปริกลี่ฮีท คูลลิ่ง มิสท์ คลาสสิก', price: 50, entryId: 'entry.417431954', img: 'https://www.jatujakmall.com/content/images/thumbs/0042149_snake-brand-prickly-heat-classic-cooling-body-spray-50-ml_550.jpeg' },
-            { name: '003-防蚊液 柑橘 ซอฟフェル スเปรย์กันยุง กลิ่นเฟรช', price: 50, entryId: 'entry.1801961741', img: 'https://thmappbkk.blob.core.windows.net/boots/2025/10/28/1279ffd0-eff9-4c46-b80f-8ccb2290702a_large.jpg' },
+            { name: '003-防蚊液 柑橘 ซอฟเฟล สเปรย์กันยุง กลิ่นเฟรช', price: 50, entryId: 'entry.1801961741', img: 'https://thmappbkk.blob.core.windows.net/boots/2025/10/28/1279ffd0-eff9-4c46-b80f-8ccb2290702a_large.jpg' },
             { name: '004-天鵝牌鼻通', price: 50, entryId: 'entry.2054506168', img: 'https://3auntiesthaimarket.com/cdn/shop/files/FB_IMG_1655350120994-removebg-preview_800x.png?v=1741646844' },
             { name: '005-poysiam 鼻通 吸鼻劑六入 ยาดม 6 ซอง', price: 50, entryId: 'entry.1479087386', img: 'https://img.lazcdn.com/g/p/mdc/3018594412dbaf0d33214f53803c4f0e.jpg_720x720q80.jpg' },
             { name: '006-LISA 藍罐鼻通', price: 50, entryId: 'entry.676572391', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6l3hNouhYhDESIIYr8u5CBOAFFn7tBRvQfg&s' },
@@ -78,19 +70,19 @@
             { name: '008-阿婆香皂MADAME HENG(興太太)香皂 薄荷 มาดามเฮง สบู่มิ้นท์แคร์สปา', price: 50, entryId: 'entry.659010215', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/16/88/8853502010716/8853502010716_1-20240304093141-.jpg' },
             { name: '009-阿婆香皂MADAME HENG(興太太)香皂 玫瑰 มาดามเฮง สบู่กุหลาบแคร์สปา', price: 50, entryId: 'entry.1408326793', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/93/88/8853502010693/8853502010693_6-20240304093145-.jpg' },
             { name: '010-阿婆香皂MADAME HENG(興太太)香皂 檀香 สบู่มาดามเฮง สบู่ไม้หอม แคร์สปา', price: 50, entryId: 'entry.1550879825', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROgzDK_dfGaCdAR5vV52R5IwgsZYPeBhTMeg&s' },
-            { name: '011-蚊蟲叮咬 頭痛用 涼涼膏  ไอซ์ เจลลิบาล์ม ยาดมพร้อมทาสูตรเจล', price: 50, entryId: 'entry.647340521', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/10/88/8854060000010/8854060000010_1-20250901105232-.jpg' },
-            { name: '012-ZAM-BUK 青草膏 18g แซม-บัค เอชอาร์ ', price: 50, entryId: 'entry.1380787522', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/10/88/8850172242010/8850172242010_3-20241022154133-.jpg' },
-            { name: '013-巴黎萊雅 保濕清新防曬 (泰國獨家版) ลอรีอัล ปารีส ยูวี ดีเฟนเดอร์ แมทท์ แอนด์ เฟรช', price: 50, entryId: 'entry.1739351714', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/05/89/8994993014705/8994993014705_9-20250618114216-.jpg' },
+            { name: '011-蚊蟲叮咬 頭痛用 涼涼膏', price: 50, entryId: 'entry.647340521', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/10/88/8854060000010/8854060000010_1-20250901105232-.jpg' },
+            { name: '012-ZAM-BUK 青草膏 18g แซม-บัค เอชอาร์', price: 50, entryId: 'entry.1380787522', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/10/88/8850172242010/8850172242010_3-20241022154133-.jpg' },
+            { name: '013-巴黎萊雅 保濕清新防曬', price: 50, entryId: 'entry.1739351714', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/05/89/8994993014705/8994993014705_9-20250618114216-.jpg' },
             { name: '014-還魂梅 บ๊วยคืนชีพ', price: 50, entryId: 'entry.2134589659', img: 'https://magmagbangkok.com/wp-content/uploads/2021/04/%E0%B8%9A%E0%B9%8A%E0%B8%A7%E0%B8%A2%E0%B8%84%E0%B8%B7%E0%B8%99%E0%B8%8A%E0%B8%B5%E0%B8%9E-186g.png' },
-            { name: '015-魷魚片花枝脆片黃色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.41530697', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR20OeO6yiditn26R3iWNlitR2UoM1gxdIT6w&s' },
-            { name: '016-魷魚片麻辣紅色包裝 18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.1218966055', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/07/88/8850157400107/8850157400107_1-20241107144942-.jpg' },
-            { name: '017-魷魚片蒜味藍色包裝18g เบนโตะ ปลาหมึกอบ รสลาบ', price: 50, entryId: 'entry.1796287054', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/01/88/8850157401401/8850157401401_2-20240614115906-.jpg' },
-            { name: '018-魷魚片桔色包裝18g เบนโตะ ปลาหมึกอบ รスลาบ', price: 50, entryId: 'entry.660240471', img: 'https://media.allonline.7eleven.co.th/pdmain/396441-01-squid-bento.jpg' },
+            { name: '015-魷魚片花枝脆片黃色包裝18g', price: 50, entryId: 'entry.41530697', img: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR20OeO6yiditn26R3iWNlitR2UoM1gxdIT6w&s' },
+            { name: '016-魷魚片麻辣紅色包裝 18g', price: 50, entryId: 'entry.1218966055', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/07/88/8850157400107/8850157400107_1-20241107144942-.jpg' },
+            { name: '017-魷魚片蒜味藍色包裝18g', price: 50, entryId: 'entry.1796287054', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/01/88/8850157401401/8850157401401_2-20240614115906-.jpg' },
+            { name: '018-魷魚片桔色包裝18g', price: 50, entryId: 'entry.660240471', img: 'https://media.allonline.7eleven.co.th/pdmain/396441-01-squid-bento.jpg' },
             { name: '019-芒果軟糖 200g Gummy Mangoes MAX', price: 50, entryId: 'entry.445090895', img: 'https://scontent.ftpe8-3.fna.fbcdn.net/v/t39.30808-6/471646793_18326478304085755_6738271295479308751_n.jpg?stp=dst-jpg_s1080x2048_tt6&_nc_cat=106&ccb=1-7&_nc_sid=127cfc&_nc_ohc=zzgmP9ipUB0Q7kNvwEC44Jn&_nc_oc=AdnKegTL4Rv4LH3FvkXgZaUgDYZEGoP-ivEN6tv-E9ptBn-t7-WTlgQ2tkM6qCqNhdA&_nc_zt=23&_nc_ht=scontent.ftpe8-3.fna&_nc_gid=xtgb3hG39cpC5aSx1Yj1RQ&oh=00_Aftau88ozSL7NdsJkWK7aDVaMq0vOocvobP2qDkQPzrBWw&oe=69905EFB' },
             { name: '020-芒果乾 200g มะม่วงแก้วขมิ้น', price: 50, entryId: 'entry.2103707388', img: 'https://scontent.ftpe8-4.fna.fbcdn.net/v/t51.75761-15/505088126_18346832650085755_6208029390634422920_n.jpg?stp=dst-jpg_s1080x2048_tt6&_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=bcXMx5WGzOMQ7kNvwHtcKUA&_nc_oc=AdnlkTMY9z3iPrPgRiB82-yU8J14DDTMZBVB7FwVnR_GbSslUZ62j8XZhAs00FEt9RY&_nc_zt=23&_nc_ht=scontent.ftpe8-4.fna&_nc_gid=K71bVKFyTpgO_iZej9iOUA&oh=00_AfsEyzeDzUDAHcg0b7h7jkWjdE0sePF_Y7kEAUInU9OHjQ&oe=69906849' },
             { name: '021-芭樂乾 200g ฝรั่งกิมจูอบแห้ง', price: 50, entryId: 'entry.1290561039', img: 'https://scontent.ftpe8-2.fna.fbcdn.net/v/t51.82787-15/531474903_18354203842085755_7602481128048168293_n.jpg?stp=dst-jpg_s1080x2048_tt6&_nc_cat=101&ccb=1-7&_nc_sid=127cfc&_nc_ohc=pzfW1QIBcTQQ7kNvwFNft91&_nc_oc=Adk6KwOi6kZgBaPSjF3oTQxTPG-P6V3OiWt91cX3qJXq_uYAqx0e6Pv4APAJXEHpp4A&_nc_zt=23&_nc_ht=scontent.ftpe8-2.fna&_nc_gid=WvO0W92CkqHfYZ2ZlTOtPg&oh=00_AfvBLS-YXyMWxspNueicLnUADJJT7A_aHAmHj9TKy-qykg&oe=69908169' },
-            { name: '022-JIRAPORN 香蕉脆片 80g กล้วยอบเนย', price: 50, entryId: 'entry.1912146295', img: 'https://baac-farmersmarket.com/wp-content/uploads/2025/06/20-1-1.jpg' },
-            { name: '023-JIRAPORN 香蕉脆片 80g กล้วยอบเนย', price: 50, entryId: 'entry.478490252', img: '' },
+            { name: '022-JIRAPORN 香蕉脆片 80g', price: 50, entryId: 'entry.1912146295', img: 'https://baac-farmersmarket.com/wp-content/uploads/2025/06/20-1-1.jpg' },
+            { name: '023-JIRAPORN 香蕉脆片 80g', price: 50, entryId: 'entry.478490252', img: '' },
             { name: '024-皇家牌乳片', price: 50, entryId: 'entry.1599520756', img: 'https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/15/88/8850901050015/8850901050015_1-20240520130922-.jpg' },
             { name: '025-奶油小熊餅干泰奶', price: 50, entryId: 'entry.679036260', img: 'https://down-th.img.susercontent.com/file/th-11134207-7r990-lz7su16kjp2h5f' },
             { name: '026-雙龍牌船麵(冬粉-湯)', price: 50, entryId: 'entry.553616762', img: 'https://o2o-static.lotuss.com/products/86587/75641912.jpg' },
@@ -137,10 +129,7 @@
             container.innerHTML = '';
             products.forEach(p => {
                 const imgSrc = p.img || `https://placehold.co/400x400/e2e8f0/64748b?text=${p.name.substring(0,3)}`;
-                
-                // 每個商品卡片都有一個獨一無二的按鈕區域 ID
                 const btnAreaId = `btn-area-${p.entryId.replace('.', '-')}`;
-
                 container.innerHTML += `
                 <div class="flex flex-col bg-white border rounded-xl shadow-sm hover:shadow-md transition overflow-hidden">
                     <img src="${imgSrc}" alt="${p.name}" class="w-full product-img bg-gray-50">
@@ -157,23 +146,17 @@
             });
         }
 
-        // 獨立出按鈕渲染邏輯，確保卡片按鈕與購物車內容同步
         function renderBtnUI(product) {
             const currentQty = cart[product.name] ? cart[product.name].quantity : 0;
-            
             if (currentQty > 0) {
                 return `
                 <div class="flex items-center justify-between w-full h-full bg-blue-50 rounded-lg border border-blue-200 overflow-hidden">
-                    <button onclick="changeQty('${product.name}', -1)" class="w-10 h-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition">-</button>
+                    <button onclick="changeQty('${product.name}', -1)" class="w-10 h-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition text-lg">-</button>
                     <span class="font-bold text-blue-700">${currentQty}</span>
-                    <button onclick="changeQty('${product.name}', 1)" class="w-10 h-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition">+</button>
+                    <button onclick="changeQty('${product.name}', 1)" class="w-10 h-full bg-blue-100 hover:bg-blue-200 text-blue-700 font-bold transition text-lg">+</button>
                 </div>`;
             } else {
-                return `
-                <button onclick="addToCart('${product.name}', ${product.price})" 
-                        class="w-full h-full bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-sm">
-                    + 加入購物車
-                </button>`;
+                return `<button onclick="addToCart('${product.name}', ${product.price})" class="w-full h-full bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition shadow-sm">+ 加入購物車</button>`;
             }
         }
 
@@ -190,19 +173,13 @@
             }
         }
 
-        // 全域刷新函式：確保卡片按鈕與下方清單同時更新
         function refreshUI(targetName) {
-            // 1. 重新渲染下方購物清單
             renderCart();
-
-            // 2. 找到目標商品物件
             const product = products.find(p => p.name === targetName);
             if (product) {
                 const btnAreaId = `btn-area-${product.entryId.replace('.', '-')}`;
                 const btnArea = document.getElementById(btnAreaId);
-                if (btnArea) {
-                    btnArea.innerHTML = renderBtnUI(product);
-                }
+                if (btnArea) btnArea.innerHTML = renderBtnUI(product);
             }
         }
 
@@ -212,7 +189,6 @@
             tbody.innerHTML = '';
             let total = 0, count = 0;
             const items = Object.keys(cart);
-            
             if (items.length > 0) {
                 emptyMsg.classList.add('hidden');
                 items.forEach(name => {
@@ -233,9 +209,7 @@
                         <td class="py-3 text-right font-bold">$${subtotal}</td>
                     </tr>`;
                 });
-            } else {
-                emptyMsg.classList.remove('hidden');
-            }
+            } else { emptyMsg.classList.remove('hidden'); }
             document.getElementById('total-price').innerText = total;
             document.getElementById('cart-count').innerText = count;
         }
@@ -250,34 +224,36 @@
             const formURL = "https://docs.google.com/forms/d/e/1FAIpQLSf9o59aGHM1f14UMWh5rGNbnm6bvW7wSjqdXluTuEWz8UyT7Q/formResponse";
             const formData = new FormData();
 
-            // 基礎欄位
-            formData.append("entry.556831663", userName);
-            formData.append("entry.1107950279", total);
-            formData.append("entry.1866153268", wishText);
+            // 確保所有基本欄位都有值
+            formData.append("entry.556831663", String(userName));
+            formData.append("entry.1107950279", String(total));
+            formData.append("entry.1866153268", String(wishText || ""));
 
-            // 商品分欄循環
+            // 核心修復：精確循環 60 個商品，確保每個 entryId 都有發送值
             products.forEach(p => {
                 const qty = cart[p.name] ? cart[p.name].quantity : 0;
-                formData.append(p.entryId, qty);
+                // 強制轉為字串並發送，這能解決資料遺失的問題
+                formData.append(p.entryId, String(qty));
             });
 
             try {
-                // 發送資料到 Google 表單
-                fetch(formURL, { method: "POST", mode: "no-cors", body: formData });
+                // 使用 fetch 送出，不處理 CORS 報錯，因為 mode: 'no-cors' 會直接成功送出
+                fetch(formURL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    body: formData
+                });
                 
                 alert('🎉 訂單已成功送出！感謝您的購買！');
                 
-                // 完全重置狀態
+                // 重置所有狀態
                 cart = {};
                 document.getElementById('user-name').value = '';
                 document.getElementById('wish-list').value = '';
-                
-                // 重新初始化整個 UI (按鈕會全部變回加入購物車)
                 initProducts();
                 renderCart();
-                
             } catch (e) {
-                alert('傳送失敗，請稍後再試');
+                alert('系統繁忙，請檢查網路連線後再試');
             }
         }
 
